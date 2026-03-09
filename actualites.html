@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualités - Agriculture Biologique</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styles spécifiques pour la page actualités */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .news-card {
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: var(--ombre);
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--ombre-forte);
+        }
+        
+        .news-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s;
+        }
+        
+        .news-card:hover .news-image img {
+            transform: scale(1.1);
+        }
+        
+        .news-date {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--vert-profond);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .news-content {
+            padding: 30px 25px 25px;
+        }
+        
+        .news-category {
+            display: inline-block;
+            background: var(--vert-sauge);
+            color: var(--vert-profond);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .news-content h3 {
+            font-size: 1.5rem;
+            color: var(--vert-profond);
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        .news-content p {
+            color: #2a4a2a;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+        
+        .news-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--vert-moyen);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s, transform 0.3s;
+        }
+        
+        .news-link i {
+            margin-left: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .news-link:hover {
+            color: var(--vert-profond);
+        }
+        
+        .news-link:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* Article en vedette */
+        .featured-news {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            background: white;
+            border-radius: 60px;
+            overflow: hidden;
+            box-shadow: var(--ombre);
+            margin: 60px 0;
+        }
+        
+        .featured-image {
+            height: 450px;
+            overflow: hidden;
+        }
+        
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s;
+        }
+        
+        .featured-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .featured-content {
+            padding: 60px 60px 60px 0;
+        }
+        
+        .featured-content .news-date-large {
+            display: inline-block;
+            background: var(--vert-profond);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .featured-content h2 {
+            font-size: 2.5rem;
+            color: var(--vert-profond);
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+        
+        .featured-content p {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: #2a4a2a;
+            margin-bottom: 30px;
+        }
+        
+        .featured-link {
+            display: inline-flex;
+            align-items: center;
+            background: var(--vert-moyen);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.3s;
+        }
+        
+        .featured-link:hover {
+            background: var(--vert-profond);
+            transform: translateY(-5px);
+        }
+        
+        .featured-link i {
+            margin-left: 10px;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 60px 0 40px;
+        }
+        
+        .pagination a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: white;
+            border-radius: 50%;
+            color: var(--vert-profond);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .pagination a:hover,
+        .pagination a.active {
+            background: var(--vert-moyen);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .pagination a.next-prev {
+            width: auto;
+            padding: 0 20px;
+            border-radius: 30px;
+        }
+        
+        /* Newsletter */
+        .newsletter-section {
+            background: linear-gradient(135deg, var(--vert-profond), #1b5e2a);
+            border-radius: 80px;
+            padding: 70px;
+            margin: 80px 0;
+            text-align: center;
+            color: white;
+        }
+        
+        .newsletter-section h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .newsletter-section p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+            gap: 10px;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 18px 25px;
+            border: none;
+            border-radius: 60px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .newsletter-form button {
+            background: white;
+            color: var(--vert-profond);
+            border: none;
+            padding: 18px 35px;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, background 0.3s;
+        }
+        
+        .newsletter-form button:hover {
+            transform: translateY(-3px);
+            background: var(--vert-sauge);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .news-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .featured-news {
+                grid-template-columns: 1fr;
+            }
+            .featured-content {
+                padding: 40px;
+            }
+            .featured-image {
+                height: 400px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            .featured-content h2 {
+                font-size: 2rem;
+            }
+            .newsletter-section {
+                padding: 40px 20px;
+            }
+            .newsletter-section h2 {
+                font-size: 2rem;
+            }
+            .newsletter-form {
+                flex-direction: column;
+            }
+            .pagination a {
+                width: 40px;
+                height: 40px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .featured-content {
+                padding: 25px;
+            }
+            .featured-content h2 {
+                font-size: 1.6rem;
+            }
+            .pagination a.next-prev {
+                padding: 0 12px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="pre-header" id="preHeader">
+        <span><i class="fas fa-map-marker-alt"></i> Yaoundé, NKOMETOU</span>
+        <span><i class="fas fa-phone-alt"></i> +237 698092721 | <i class="fas fa-envelope"></i> leondzasso@gmail.com</span>
+    </div>
+
+    <nav class="navbar">
+        <div class="logo-area">
+            <img src="images/Logo.png" alt="Logo" class="logo-img">
+            <div class="logo-text-area">
+                <span class="logo-title">AGRICULTURE BIOLOGIQUE</span>
+                <span class="logo-slogan">votre partenaire pour une agriculture durable</span>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Accueil</a>
+            <a href="about.html">À propos</a>
+            <a href="services.html">Services</a>
+            <a href="formation.html">Formation</a>
+            <a href="actualites.html" class="active">Actualités</a>
+        </div>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+        <div class="page-hero-bg" style="background-image: url('https://images.pexels.com/photos/1587489/pexels-photo-1587489.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');"></div>
+        <div class="page-hero-overlay"></div>
+        <div class="container">
+            <div class="breadcrumb-nav">
+                <a href="index.html"><i class="fas fa-home"></i> Accueil</a>
+                <span class="breadcrumb-sep">/</span>
+                <span class="breadcrumb-current">Actualités</span>
+            </div>
+            <h1>Actualités & Événements</h1>
+            <p>Suivez toutes les nouveautés du cabinet et du secteur bio</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Article en vedette -->
+        <div class="featured-news">
+            <div class="featured-image">
+                <img src="https://images.pexels.com/photos/2886937/pexels-photo-2886937.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Conférence bio">
+            </div>
+            <div class="featured-content">
+                <span class="news-date-large"><i class="far fa-calendar-alt"></i> 15 Mars 2026</span>
+                <h2>Conférence internationale sur l'agriculture biologique à Yaoundé</h2>
+                <p>Notre cabinet participera à la grande conférence panafricaine sur l'agriculture biologique qui se tiendra au Palais des Congrès de Yaoundé. Lionel NDZANA interviendra sur le thème "Les défis de la certification bio en Afrique centrale".</p>
+                <a href="#" class="featured-link">Lire l'article complet <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <h2 class="section-title">Dernières actualités</h2>
+        
+        <!-- Grille d'actualités -->
+        <div class="news-grid">
+            <!-- Actualité 1 -->
+            <div class="news-card">
+                <div class="news-image">
+                    <img src="images/plante.jpg" alt="Formation">
+                    <div class="news-date"><i class="far fa-calendar-alt"></i> 10 Mars 2026</div>
+                </div>
+                <div class="news-content">
+                    <span class="news-category">Formation</span>
+                    <h3>Nouvelle session de formation en maraîchage bio</h3>
+                    <p>Inscriptions ouvertes pour la formation intensive en maraîchage sur petite surface. 15 places disponibles.</p>
+                    <a href="#" class="news-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- Actualité 2 -->
+            <div class="news-card">
+                <div class="news-image">
+                    <img src="images/avocat.jpg" alt="Partenariat">
+                    <div class="news-date"><i class="far fa-calendar-alt"></i> 5 Mars 2026</div>
+                </div>
+                <div class="news-content">
+                    <span class="news-category">Partenariat</span>
+                    <h3>Nouveau partenariat avec le CMCI</h3>
+                    <p>Nous sommes fiers d'annoncer notre collaboration avec le CMCI pour développer l'agriculture bio dans la région.</p>
+                    <a href="#" class="news-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- Actualité 3 -->
+            <div class="news-card">
+                <div class="news-image">
+                    <img src="images/piment.jpg" alt="Projet">
+                    <div class="news-date"><i class="far fa-calendar-alt"></i> 28 Fév 2026</div>
+                </div>
+                <div class="news-content">
+                    <span class="news-category">Projet</span>
+                    <h3>Lancement du projet "Fermes pilotes"</h3>
+                    <p>10 fermes sélectionnées pour expérimenter nos nouvelles techniques d'agroécologie. Résultats attendus fin 2026.</p>
+                    <a href="#" class="news-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- Actualité 4 -->
+            <div class="news-card">
+                <div class="news-image">
+                    <img src="images/toma.jpg" alt="Certification">
+                    <div class="news-date"><i class="far fa-calendar-alt"></i> 20 Fév 2026</div>
+                </div>
+                <div class="news-content">
+                    <span class="news-category">Certification</span>
+                    <h3>5 nouvelles fermes certifiées bio</h3>
+                    <p>Grâce à notre accompagnement, 5 exploitations ont obtenu leur certification biologique ce mois-ci.</p>
+                    <a href="#" class="news-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- Actualité 5 -->
+            <div class="news-card">
+                <div class="news-image">
+                    <img src="images/goyave.jpg" alt="Recherche">
+                    <div class="news-date"><i class="far fa-calendar-alt"></i> 15 Fév 2026</div>
+                </div>
+                <div class="news-content">
+                    <span class="news-category">Recherche</span>
+                    <h3>Étude sur la biodiversité dans les vergers bio</h3>
+                    <p>Publication des premiers résultats de notre étude sur l'impact des vergers agroécologiques sur la faune locale.</p>
+                    <a href="#" class="news-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- Actualité 6 -->
+            <div class="news-card">
+                <div class="news-image">
+                    <img src="images/planta.jpg" alt="Événement">
+                    <div class="news-date"><i class="far fa-calendar-alt"></i> 8 Fév 2026</div>
+                </div>
+                <div class="news-content">
+                    <span class="news-category">Événement</span>
+                    <h3>Journée portes ouvertes à la ferme pilote</h3>
+                    <p>Venez découvrir notre ferme pédagogique le 20 mars. Ateliers pratiques et dégustations de produits bio.</p>
+                    <a href="#" class="news-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <a href="#" class="next-prev"><i class="fas fa-chevron-left"></i> Précédent</a>
+            <a href="#" class="active">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#" class="next-prev">Suivant <i class="fas fa-chevron-right"></i></a>
+        </div>
+
+        <!-- Section archives -->
+        <div style="background: var(--vert-sauge); border-radius: 60px; padding: 50px; margin: 60px 0;">
+            <h2 style="color: var(--vert-profond); font-size: 2.2rem; margin-bottom: 30px; text-align: center;">Archives par année</h2>
+            <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+                <a href="#" style="background: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; color: var(--vert-profond); font-weight: 600; transition: transform 0.3s;">2026</a>
+                <a href="#" style="background: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; color: var(--vert-profond); font-weight: 600; transition: transform 0.3s;">2025</a>
+                <a href="#" style="background: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; color: var(--vert-profond); font-weight: 600; transition: transform 0.3s;">2024</a>
+                <a href="#" style="background: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; color: var(--vert-profond); font-weight: 600; transition: transform 0.3s;">2023</a>
+            </div>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="newsletter-section">
+            <h2>Restez informé</h2>
+            <p>Recevez nos actualités et conseils directement dans votre boîte mail</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Votre adresse email" required>
+                <button type="submit">S'abonner</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- PREFOOTER -->
+    <div class="prefooter">
+        <div>
+            <h4>Agriculture Biologique</h4>
+            <p>Cabinet d'experts agronomes dédié à l'agriculture durable.</p>
+        </div>
+      <div>
+    <h4>Liens rapides</h4>
+    <a href="index.html">Accueil</a>
+    <a href="about.html">À propos</a>
+    <a href="services.html">Services</a>
+    <a href="formation.html">Formation</a>
+    <a href="actualites.html">Actualités</a>
+    <a href="faq.html">FAQ</a>
+</div>
+        <div>
+            <h4>Contact</h4>
+            <p><i class="fas fa-phone"></i> +237 620728292 / 698092721</p>
+            <p><i class="fas fa-envelope"></i> leondzasso@gmail.com</p>
+            <p><i class="fas fa-map"></i> Yaoundé, NKOMETOU</p>
+        </div>
+        <div>
+            <h4>Suivez-nous</h4>
+            <div class="social-links">
+                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://twitter.com" target="_blank"><i class="fab fa-x"></i></a>
+                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2026 BECORP - Tous droits réservés. | Cabinet Agriculture Biologique
+    </div>
+
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'});"><i class="fas fa-arrow-up"></i></button>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

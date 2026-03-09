@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Agriculture Biologique</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styles spécifiques pour la page FAQ */
+        .faq-container {
+            max-width: 900px;
+            margin: 60px auto;
+        }
+        
+        .faq-category {
+            margin-bottom: 50px;
+        }
+        
+        .faq-category h2 {
+            color: var(--vert-profond);
+            font-size: 2rem;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--vert-sauge);
+        }
+        
+        .faq-item {
+            background: white;
+            border-radius: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px -10px rgba(15, 59, 30, 0.15);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            box-shadow: 0 15px 35px -15px var(--vert-profond);
+            transform: translateY(-3px);
+        }
+        
+        .faq-question {
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background: white;
+            transition: background 0.3s;
+        }
+        
+        .faq-question:hover {
+            background: #f8fff8;
+        }
+        
+        .faq-question h3 {
+            font-size: 1.2rem;
+            color: var(--vert-profond);
+            font-weight: 600;
+            margin: 0;
+            flex: 1;
+            padding-right: 20px;
+        }
+        
+        .faq-question i {
+            font-size: 1.3rem;
+            color: var(--vert-moyen);
+            transition: transform 0.3s;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(45deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            background: #f9fff9;
+            border-top: 1px solid transparent;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            border-top-color: var(--vert-sauge);
+        }
+        
+        .faq-answer p {
+            padding: 25px 30px;
+            color: #2a4a2a;
+            line-height: 1.7;
+            margin: 0;
+        }
+        
+        .faq-answer ul, .faq-answer ol {
+            padding: 0 30px 25px 50px;
+            color: #2a4a2a;
+            line-height: 1.7;
+        }
+        
+        .faq-answer li {
+            margin: 8px 0;
+        }
+        
+        .faq-contact {
+            background: linear-gradient(135deg, var(--vert-profond), #1b5e2a);
+            border-radius: 60px;
+            padding: 60px;
+            margin: 60px 0 40px;
+            text-align: center;
+            color: white;
+        }
+        
+        .faq-contact h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .faq-contact p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 30px;
+        }
+        
+        .faq-contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .faq-contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: var(--vert-profond);
+            padding: 15px 35px;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, background 0.3s;
+        }
+        
+        .faq-contact-btn:hover {
+            transform: translateY(-5px);
+            background: var(--vert-sauge);
+        }
+        
+        .faq-contact-btn i {
+            font-size: 1.3rem;
+        }
+        
+        .faq-contact-btn.whatsapp {
+            background: #25D366;
+            color: white;
+        }
+        
+        .faq-contact-btn.whatsapp:hover {
+            background: #128C7E;
+        }
+        
+        /* Recherche FAQ */
+        .faq-search {
+            background: white;
+            border-radius: 80px;
+            padding: 50px;
+            margin: 40px 0 60px;
+            box-shadow: var(--ombre);
+            text-align: center;
+        }
+        
+        .faq-search h3 {
+            color: var(--vert-profond);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+        }
+        
+        .search-box {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+            gap: 10px;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 18px 25px;
+            border: 2px solid var(--vert-sauge);
+            border-radius: 60px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .search-box input:focus {
+            border-color: var(--vert-moyen);
+        }
+        
+        .search-box button {
+            background: var(--vert-moyen);
+            color: white;
+            border: none;
+            padding: 18px 35px;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+        
+        .search-box button:hover {
+            background: var(--vert-profond);
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .faq-question h3 {
+                font-size: 1.1rem;
+            }
+            .faq-contact {
+                padding: 40px 20px;
+            }
+            .faq-contact h2 {
+                font-size: 2rem;
+            }
+            .faq-search {
+                padding: 30px 20px;
+            }
+            .search-box {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .faq-question {
+                padding: 20px;
+            }
+            .faq-answer p {
+                padding: 20px;
+            }
+            .faq-contact-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .faq-contact-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="pre-header" id="preHeader">
+        <span><i class="fas fa-map-marker-alt"></i> Yaoundé, NKOMETOU</span>
+        <span><i class="fas fa-phone-alt"></i> +237 698092721 | <i class="fas fa-envelope"></i> leondzasso@gmail.com</span>
+    </div>
+
+    <nav class="navbar">
+        <div class="logo-area">
+            <img src="images/Logo.png" alt="Logo" class="logo-img">
+            <div class="logo-text-area">
+                <span class="logo-title">AGRICULTURE BIOLOGIQUE</span>
+                <span class="logo-slogan">votre partenaire pour une agriculture durable</span>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Accueil</a>
+            <a href="about.html">À propos</a>
+            <a href="services.html">Services</a>
+            <a href="formation.html">Formation</a>
+            <a href="actualites.html">Actualités</a>
+        </div>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+        <div class="page-hero-bg" style="background-image: url('images/OIP\ \(2\).webp');"></div>
+        <div class="page-hero-overlay"></div>
+        <div class="container">
+            <div class="breadcrumb-nav">
+                <a href="index.html"><i class="fas fa-home"></i> Accueil</a>
+                <span class="breadcrumb-sep">/</span>
+                <span class="breadcrumb-current">FAQ</span>
+            </div>
+            <h1>Questions fréquentes</h1>
+            <p>Trouvez rapidement des réponses à vos questions</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Barre de recherche -->
+        <div class="faq-search">
+            <h3>Comment pouvons-nous vous aider ?</h3>
+            <div class="search-box">
+                <input type="text" id="faqSearch" placeholder="Rechercher une question...">
+                <button onclick="searchFAQ()"><i class="fas fa-search"></i> Rechercher</button>
+            </div>
+        </div>
+
+        <div class="faq-container">
+            <!-- Catégorie : Général -->
+            <div class="faq-category">
+                <h2>Général</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Qu'est-ce que l'agriculture biologique ?</h3>
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>L'agriculture biologique est un mode de production agricole qui exclut l'utilisation de produits chimiques de synthèse (pesticides, engrais chimiques, OGM) et privilégie des pratiques respectueuses de l'environnement, de la biodiversité et du bien-être animal. Elle vise à produire des aliments sains tout en préservant les ressources naturelles.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Quels sont les avantages de l'agriculture biologique ?</h3>
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Les avantages sont multiples :</p>
+                        <ul>
+                            <li>Aliments plus sains et sans résidus chimiques</li>
+                            <li>Préservation de la biodiversité et des écosystèmes</li>
+                            <li>Protection des sols et de l'eau</li>
+                            <li>Réduction de l'empreinte carbone</li>
+                            <li>Meilleure valorisation économique des productions</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Comment savoir si un produit est vraiment bio ?</h3>
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Les produits biologiques certifiés portent obligatoirement un label de certification (comme le label bio européen, Ecocert, ou BioSuisse). Au Cameroun, les produits certifiés par notre cabinet reçoivent une attestation et peuvent porter notre marque de certification après contrôle rigoureux.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Catégorie : Conversion en bio -->
+            <div class="faq-category">
+                <h2>Conversion en agriculture biologique</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Combien de temps dure la conversion en bio ?</h3>
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>La période de conversion dure généralement 2 à 3 ans selon le type de production :</p>
+                        <ul>
+                            <li>2 ans pour les cultures annuelles</li>
+                            <li>3 ans pour les cultures pérennes (vergers, vignes)</li>
+                            <li>2 ans pour l'élevage (selon les espèces)</li>
+                        </ul>
+                        <p>Pendant cette période, l'exploitation applique déjà les méthodes bio mais ne peut pas encore vendre ses produits avec la mention "bio".</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Quelles sont les étapes pour convertir ma ferme ?</h3>
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Notre accompagnement suit ces étapes :</p>
+                        <ol>
+                            <li>Diagnostic initial de l'exploitation</li>
+                            <li>Plan de conversion personnalisé</li>
+                            <li>Mise en place des pratiques bio (gestion des sols, rotation, etc.)</li>
+                            <li>Suivi technique et accompagnement terrain</li>
+                            <li>Préparation à la certification</li>
+                            <li>Audit de certification et obtention du label</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Est-ce que ma production va baisser pendant la conversion ?</h3>
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Il est possible d'observer une légère baisse de rendement la première année, le temps que le sol se régénère et que l'écosystème se rééquilibre. Cependant, nos méthodes permettent de minimiser cette transition. À moyen terme (2-3 ans), les rendements se stabilisent et la qualité supérieure des produits permet une meilleure valorisation économique.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Catégorie : Certification -->
+            <div class="faq-category">
+                <h2>Certification et labels</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Quels sont les organismes de certification reconnus ?</h3>
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Au Cameroun et en Afrique centrale, les principaux organismes de certification sont :</p>
+                        <ul>
+                            <li>Ecocert (certification internationale)</li>
+                            <li>BioSuisse (pour l'export vers la Suisse)</li>
+                            <li>Certification locale via le ministère de l'Agriculture</li>
+                            <li>Notre cabinet est partenaire de ces organismes et vous accompagne dans toutes les démarches.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Combien coûte une certification bio ?</h3>
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Le coût varie selon la taille de l'exploitation et le type de production. En moyenne :</p>
+                        <ul>
+                            <li>Petite exploitation (< 2 ha) : 150 000 - 250 000 FCFA</li>
+                            <li>Moyenne exploitation (2-10 ha) : 300 000 - 500 000 FCFA</li>
+                            <li>Grande exploitation (> 10 ha) : sur devis</li>
+                        </ul>
+                        <p>Notre cabinet propose des forfaits incluant l'accompagnement et la certification.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Les produits certifiés par votre cabinet sont-ils exportables ?</h3>
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Oui, nous travaillons avec des organismes de certification reconnus internationalement. Nos labels sont acceptés en Europe (Ecocert), en Suisse (BioSuisse) et dans plusieurs autres pays. Nous pouvons également vous accompagner dans les démarches d'exportation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Catégorie : Formations -->
+            <div class="faq-category">
+                <h2>Formations</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Qui peut participer à vos formations ?</h3>
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Nos formations sont ouvertes à tous :</p>
+                        <ul>
+                            <li>Agriculteurs et producteurs</li>
+                            <li>Porteurs de projet en agriculture</li>
+                            <li>Étudiants en agronomie</li>
+                            <li>Techniciens agricoles</li>
+                            <li>Toute personne intéressée par l'agriculture biologique</li>
+                        </ul>
+                        <p>Aucun prérequis nécessaire, nos formations s'adaptent à votre niveau.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Comment s'inscrire à une formation ?</h3>
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Pour vous inscrire :</p>
+                        <ol>
+                            <li>Consultez notre page <a href="formation.html">Formations</a> pour voir les prochaines sessions</li>
+                            <li>Contactez-nous par téléphone ou WhatsApp au +237 698092721</li>
+                            <li>Ou envoyez un email à leondzasso@gmail.com</li>
+                        </ol>
+                        <p>Un acompte de 30% est demandé pour valider votre inscription.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Les formations sont-elles certifiantes ?</h3>
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Oui, à l'issue de chaque formation, une attestation de participation est délivrée. Pour les formations longues (BTSA ACSE), un diplôme reconnu par le ministère de l'Agriculture est remis après validation des examens.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Catégorie : Services et accompagnement -->
+            <div class="faq-category">
+                <h2>Services et accompagnement</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Proposez-vous des visites de conseil sur le terrain ?</h3>
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolument ! Nos ingénieurs agronomes se déplacent sur votre exploitation pour un diagnostic personnalisé. Les visites terrain sont incluses dans nos forfaits d'accompagnement. Contactez-nous pour planifier une visite.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Quelles sont vos zones d'intervention ?</h3>
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Nous intervenons principalement dans 4 régions du Cameroun :</p>
+                        <ul>
+                            <li>Centre (Yaoundé et environs)</li>
+                            <li>Littoral (Douala)</li>
+                            <li>Ouest (Bafoussam)</li>
+                            <li>Nord (Garoua)</li>
+                        </ul>
+                        <p>Pour d'autres régions, nous pouvons étudier votre demande (frais de déplacement supplémentaires).</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Proposez-vous un suivi après la certification ?</h3>
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Oui, nous proposons des formules de suivi annuel pour vous accompagner durablement :</p>
+                        <ul>
+                            <li>Visites de contrôle trimestrielles</li>
+                            <li>Conseils techniques personnalisés</li>
+                            <li>Aide pour le renouvellement de la certification</li>
+                            <li>Accompagnement à la commercialisation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section contact -->
+        <div class="faq-contact">
+            <h2>Vous n'avez pas trouvé votre réponse ?</h2>
+            <p>Notre équipe est là pour vous aider. Contactez-nous directement !</p>
+            <div class="faq-contact-buttons">
+                <a href="https://wa.me/237698092721" class="faq-contact-btn whatsapp" target="_blank">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="mailto:leondzasso@gmail.com" class="faq-contact-btn">
+                    <i class="fas fa-envelope"></i> Email
+                </a>
+                <a href="tel:+237698092721" class="faq-contact-btn">
+                    <i class="fas fa-phone-alt"></i> Appeler
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- PREFOOTER -->
+    <div class="prefooter">
+        <div>
+            <h4>Agriculture Biologique</h4>
+            <p>Cabinet d'experts agronomes dédié à l'agriculture durable.</p>
+        </div>
+        <div>
+            <h4>Liens rapides</h4>
+            <a href="index.html">Accueil</a>
+            <a href="about.html">À propos</a>
+            <a href="services.html">Services</a>
+            <a href="formation.html">Formation</a>
+            <a href="actualites.html">Actualités</a>
+            <a href="faq.html">FAQ</a>
+        </div>
+        <div>
+            <h4>Contact</h4>
+            <p><i class="fas fa-phone"></i> +237 620728292 / 698092721</p>
+            <p><i class="fas fa-envelope"></i> leondzasso@gmail.com</p>
+            <p><i class="fas fa-map"></i> Yaoundé, NKOMETOU</p>
+        </div>
+        <div>
+            <h4>Suivez-nous</h4>
+            <div class="social-links">
+                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://twitter.com" target="_blank"><i class="fab fa-x"></i></a>
+                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2026 BECORP - Tous droits réservés. | Cabinet Agriculture Biologique
+    </div>
+
+    <button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'});"><i class="fas fa-arrow-up"></i></button>
+
+    <script>
+        // Fonction pour toggle FAQ
+        function toggleFAQ(element) {
+            const faqItem = element.closest('.faq-item');
+            faqItem.classList.toggle('active');
+            
+            // Fermer les autres (optionnel)
+            // const allFaqs = document.querySelectorAll('.faq-item');
+            // allFaqs.forEach(item => {
+            //     if (item !== faqItem) {
+            //         item.classList.remove('active');
+            //     }
+            // });
+        }
+
+        // Fonction de recherche simple
+        function searchFAQ() {
+            const searchTerm = document.getElementById('faqSearch').value.toLowerCase();
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question h3').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Recherche en temps réel (optionnel)
+        document.getElementById('faqSearch').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                searchFAQ();
+            }
+        });
+    </script>
+    <script src="scripts.js"></script>
+</body>
+</html>
