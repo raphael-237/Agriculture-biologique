@@ -108,7 +108,7 @@ body {
 
 .nav-links { 
     display: flex; 
-    gap: 40px; 
+    gap: 10px; 
     flex-wrap: wrap;
 }
 
@@ -116,32 +116,59 @@ body {
     text-decoration: none;
     color: #1a3a1a;
     font-weight: 500;
-    padding: 8px 0;
-    position: relative;
+    padding: 10px 20px;
     font-size: 1.05rem;
-    transition: color 0.3s;
+    transition: all 0.3s ease;
     white-space: nowrap;
+    border-radius: 50px; /* Coins arrondis pour les boutons */
+    background: transparent;
 }
 
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--vert-moyen);
-    transition: width 0.3s cubic-bezier(0.65, 0, 0.35, 1);
-}
-
-.nav-links a:hover::after,
-.nav-links a.active::after {
-    width: 100%;
-}
-
+/* Style pour le lien actif - fond vert avec texte blanc */
 .nav-links a.active {
-    color: var(--vert-profond);
+    background: var(--vert-moyen); /* Vert moyen */
+    color: white !important;
     font-weight: 600;
+    box-shadow: 0 4px 10px rgba(42, 110, 59, 0.3);
+}
+
+/* Effet de survol - fond vert clair */
+.nav-links a:hover:not(.active) {
+    background: var(--vert-sauge);
+    color: var(--vert-profond);
+    transform: scale(1.05);
+}
+
+/* Effet de survol sur l'élément actif */
+.nav-links a.active:hover {
+    background: var(--vert-profond); /* Vert plus foncé au survol */
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(15, 59, 30, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-links {
+        gap: 8px;
+        justify-content: center;
+    }
+    
+    .nav-links a {
+        padding: 8px 15px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .nav-links {
+        gap: 5px;
+    }
+    
+    .nav-links a {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+    }
 }
 
 /* ========== CONTAINER ========== */
@@ -317,60 +344,159 @@ body {
     transform: scale(1.05);
 }
 
-/* ========== TEMOIGNAGES ========== */
-.testimonials {
+/* ========== TEMOIGNAGES AVEC CERCLES D'INITIALES ========== */
+.testimonials-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
-    margin: 80px 0;
+    margin: 60px 0;
 }
 
 .testimonial-card {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    border-radius: 40px;
-    padding: 40px 30px;
-    box-shadow: 0 30px 50px -25px rgba(0, 40, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    transition: all 0.4s ease;
+    background: white;
+    border-radius: 30px;
+    padding: 35px;
+    box-shadow: 0 15px 30px -12px rgba(0, 40, 0, 0.15);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid rgba(42, 110, 59, 0.1);
     position: relative;
-    overflow: hidden;
-}
-
-.testimonial-card::before {
-    content: '"';
-    position: absolute;
-    top: -20px;
-    right: 20px;
-    font-size: 12rem;
-    color: rgba(42, 110, 59, 0.05);
-    font-family: serif;
-    line-height: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .testimonial-card:hover {
-    transform: translateY(-15px);
-    box-shadow: 0 45px 65px -30px #0f3b1e;
-    background: white;
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px -18px #0f3b1e;
+    border-color: var(--vert-sauge);
+}
+
+/* Témoignage en vedette - coloré */
+.testimonial-card.featured {
+    background: linear-gradient(145deg, #fef9e7, #ffffff);
+    border: 2px solid #ffd700;
+    position: relative;
+    box-shadow: 0 20px 40px -15px rgba(255, 215, 0, 0.3);
+}
+
+.testimonial-card.featured::before {
+    content: "⭐ Coup de cœur";
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: #ffd700;
+    color: #1a3a1a;
+    padding: 5px 20px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+    z-index: 2;
+}
+
+.testimonial-rating {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+}
+
+.testimonial-rating i {
+    color: #ffb74d;
+    margin-right: 2px;
+}
+
+.testimonial-rating .far.fa-star {
+    color: #ddd;
 }
 
 .testimonial-card p {
-    font-size: 1.15rem;
+    font-size: 1rem;
     line-height: 1.7;
-    color: #1e3a2a;
-    margin: 20px 0;
+    color: #2a4a2a;
+    margin-bottom: 25px;
     font-style: italic;
     position: relative;
-    z-index: 1;
+    padding-left: 20px;
+    flex: 1;
 }
 
-.testimonial-card h4 {
-    color: var(--vert-profond);
-    font-weight: 600;
-    font-size: 1.1rem;
-    border-top: 1px solid var(--vert-sauge);
+.testimonial-card p::before {
+    content: '"';
+    font-size: 3rem;
+    color: var(--vert-sauge);
+    opacity: 0.3;
+    position: absolute;
+    left: -5px;
+    top: -20px;
+    font-family: serif;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-top: 1px solid rgba(42, 110, 59, 0.15);
     padding-top: 20px;
-    margin-top: 15px;
+    margin-top: auto;
+}
+
+.author-initials {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: var(--vert-moyen);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+}
+
+/* Couleurs différentes pour les initiales (optionnel) */
+.testimonial-card:nth-child(2) .author-initials { background: #2a6e3b; }
+.testimonial-card:nth-child(3) .author-initials { background: #3a7e4b; }
+.testimonial-card:nth-child(4) .author-initials { background: #1e5e2e; }
+.testimonial-card:nth-child(5) .author-initials { background: #4a8e5b; }
+.testimonial-card:nth-child(6) .author-initials { background: #2e7d5e; }
+.testimonial-card:nth-child(7) .author-initials { background: #5a9e6b; }
+.testimonial-card:nth-child(8) .author-initials { background: #3a6e4b; }
+.testimonial-card:nth-child(9) .author-initials { background: #1b5e2a; }
+.testimonial-card:nth-child(10) .author-initials { background: #4a7e5b; }
+
+.testimonial-author h4 {
+    color: var(--vert-profond);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.testimonial-author span {
+    color: var(--vert-moyen);
+    font-size: 0.85rem;
+    opacity: 0.8;
+    display: block;
+    line-height: 1.4;
+}
+
+/* RESPONSIVE */
+@media (min-width: 1400px) {
+    .testimonials-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 1399px) and (min-width: 992px) {
+    .testimonials-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 991px) and (min-width: 768px) {
+    .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 767px) {
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .testimonial-card { padding: 25px; }
+    .author-initials { width: 45px; height: 45px; font-size: 1.1rem; }
 }
 
 /* ========== RÉALISATIONS (SHOWCASE) ========== */

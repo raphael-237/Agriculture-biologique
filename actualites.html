@@ -190,6 +190,23 @@
             margin-left: 10px;
         }
         
+        /* Styles pour le widget Elfsight */
+        .elfsight-widget-container {
+            margin: 50px 0;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: var(--ombre);
+            background: white;
+            padding: 30px;
+        }
+        
+        .elfsight-widget-container h2 {
+            color: var(--vert-profond);
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
         /* Pagination */
         .pagination {
             display: flex;
@@ -315,6 +332,9 @@
                 width: 40px;
                 height: 40px;
             }
+            .elfsight-widget-container {
+                padding: 20px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -328,13 +348,16 @@
                 padding: 0 12px;
                 font-size: 0.9rem;
             }
+            .elfsight-widget-container h2 {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="pre-header" id="preHeader">
         <span><i class="fas fa-map-marker-alt"></i> Yaoundé, NKOMETOU</span>
-        <span><i class="fas fa-phone-alt"></i> +237 698092721 | <i class="fas fa-envelope"></i> leondzasso@gmail.com</span>
+        <span><i class="fas fa-phone-alt"></i> +237 675861629 | <i class="fas fa-envelope"></i> leondzasso@gmail.com</span>
     </div>
 
     <nav class="navbar">
@@ -370,138 +393,16 @@
     </div>
 
     <div class="container">
-        <!-- Article en vedette -->
-        <div class="featured-news">
-            <div class="featured-image">
-                <img src="https://images.pexels.com/photos/2886937/pexels-photo-2886937.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Conférence bio">
-            </div>
-            <div class="featured-content">
-                <span class="news-date-large"><i class="far fa-calendar-alt"></i> 15 Mars 2026</span>
-                <h2>Conférence internationale sur l'agriculture biologique à Yaoundé</h2>
-                <p>Notre cabinet participera à la grande conférence panafricaine sur l'agriculture biologique qui se tiendra au Palais des Congrès de Yaoundé. Lionel NDZANA interviendra sur le thème "Les défis de la certification bio en Afrique centrale".</p>
-                <a href="#" class="featured-link">Lire l'article complet <i class="fas fa-arrow-right"></i></a>
-            </div>
-        </div>
 
         <h2 class="section-title">Dernières actualités</h2>
         
-        <!-- Grille d'actualités -->
-        <div class="news-grid">
-            <!-- Actualité 1 -->
-            <div class="news-card">
-                <div class="news-image">
-                    <img src="images/plante.jpg" alt="Formation">
-                    <div class="news-date"><i class="far fa-calendar-alt"></i> 10 Mars 2026</div>
-                </div>
-                <div class="news-content">
-                    <span class="news-category">Formation</span>
-                    <h3>Nouvelle session de formation en maraîchage bio</h3>
-                    <p>Inscriptions ouvertes pour la formation intensive en maraîchage sur petite surface. 15 places disponibles.</p>
-                    <a href="#" class="news-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-            
-            <!-- Actualité 2 -->
-            <div class="news-card">
-                <div class="news-image">
-                    <img src="images/avocat.jpg" alt="Partenariat">
-                    <div class="news-date"><i class="far fa-calendar-alt"></i> 5 Mars 2026</div>
-                </div>
-                <div class="news-content">
-                    <span class="news-category">Partenariat</span>
-                    <h3>Nouveau partenariat avec le CMCI</h3>
-                    <p>Nous sommes fiers d'annoncer notre collaboration avec le CMCI pour développer l'agriculture bio dans la région.</p>
-                    <a href="#" class="news-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-            
-            <!-- Actualité 3 -->
-            <div class="news-card">
-                <div class="news-image">
-                    <img src="images/piment.jpg" alt="Projet">
-                    <div class="news-date"><i class="far fa-calendar-alt"></i> 28 Fév 2026</div>
-                </div>
-                <div class="news-content">
-                    <span class="news-category">Projet</span>
-                    <h3>Lancement du projet "Fermes pilotes"</h3>
-                    <p>10 fermes sélectionnées pour expérimenter nos nouvelles techniques d'agroécologie. Résultats attendus fin 2026.</p>
-                    <a href="#" class="news-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-            
-            <!-- Actualité 4 -->
-            <div class="news-card">
-                <div class="news-image">
-                    <img src="images/toma.jpg" alt="Certification">
-                    <div class="news-date"><i class="far fa-calendar-alt"></i> 20 Fév 2026</div>
-                </div>
-                <div class="news-content">
-                    <span class="news-category">Certification</span>
-                    <h3>5 nouvelles fermes certifiées bio</h3>
-                    <p>Grâce à notre accompagnement, 5 exploitations ont obtenu leur certification biologique ce mois-ci.</p>
-                    <a href="#" class="news-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-            
-            <!-- Actualité 5 -->
-            <div class="news-card">
-                <div class="news-image">
-                    <img src="images/goyave.jpg" alt="Recherche">
-                    <div class="news-date"><i class="far fa-calendar-alt"></i> 15 Fév 2026</div>
-                </div>
-                <div class="news-content">
-                    <span class="news-category">Recherche</span>
-                    <h3>Étude sur la biodiversité dans les vergers bio</h3>
-                    <p>Publication des premiers résultats de notre étude sur l'impact des vergers agroécologiques sur la faune locale.</p>
-                    <a href="#" class="news-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-            
-            <!-- Actualité 6 -->
-            <div class="news-card">
-                <div class="news-image">
-                    <img src="images/planta.jpg" alt="Événement">
-                    <div class="news-date"><i class="far fa-calendar-alt"></i> 8 Fév 2026</div>
-                </div>
-                <div class="news-content">
-                    <span class="news-category">Événement</span>
-                    <h3>Journée portes ouvertes à la ferme pilote</h3>
-                    <p>Venez découvrir notre ferme pédagogique le 20 mars. Ateliers pratiques et dégustations de produits bio.</p>
-                    <a href="#" class="news-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
+        <!-- WIDGET ELFSIGHT - REMPLACE L'ANCIENNE GRILLE -->
+        <div class="elfsight-widget-container">
+            <!-- Elfsight Social Feed | Untitled Social Feed -->
+            <script src="https://elfsightcdn.com/platform.js" async></script>
+            <div class="elfsight-app-77ef5a81-6a05-43a5-bff6-aedca592326f" data-elfsight-app-lazy></div>
         </div>
 
-        <!-- Pagination -->
-        <div class="pagination">
-            <a href="#" class="next-prev"><i class="fas fa-chevron-left"></i> Précédent</a>
-            <a href="#" class="active">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#" class="next-prev">Suivant <i class="fas fa-chevron-right"></i></a>
-        </div>
-
-        <!-- Section archives -->
-        <div style="background: var(--vert-sauge); border-radius: 60px; padding: 50px; margin: 60px 0;">
-            <h2 style="color: var(--vert-profond); font-size: 2.2rem; margin-bottom: 30px; text-align: center;">Archives par année</h2>
-            <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
-                <a href="#" style="background: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; color: var(--vert-profond); font-weight: 600; transition: transform 0.3s;">2026</a>
-                <a href="#" style="background: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; color: var(--vert-profond); font-weight: 600; transition: transform 0.3s;">2025</a>
-                <a href="#" style="background: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; color: var(--vert-profond); font-weight: 600; transition: transform 0.3s;">2024</a>
-                <a href="#" style="background: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; color: var(--vert-profond); font-weight: 600; transition: transform 0.3s;">2023</a>
-            </div>
-        </div>
-
-        <!-- Newsletter -->
-        <div class="newsletter-section">
-            <h2>Restez informé</h2>
-            <p>Recevez nos actualités et conseils directement dans votre boîte mail</p>
-            <form class="newsletter-form">
-                <input type="email" placeholder="Votre adresse email" required>
-                <button type="submit">S'abonner</button>
-            </form>
-        </div>
     </div>
 
     <!-- PREFOOTER -->
@@ -510,28 +411,27 @@
             <h4>Agriculture Biologique</h4>
             <p>Cabinet d'experts agronomes dédié à l'agriculture durable.</p>
         </div>
-      <div>
-    <h4>Liens rapides</h4>
-    <a href="index.html">Accueil</a>
-    <a href="about.html">À propos</a>
-    <a href="services.html">Services</a>
-    <a href="formation.html">Formation</a>
-    <a href="actualites.html">Actualités</a>
-    <a href="faq.html">FAQ</a>
-</div>
+        <div>
+            <h4>Liens rapides</h4>
+            <a href="index.html">Accueil</a>
+            <a href="about.html">À propos</a>
+            <a href="services.html">Services</a>
+            <a href="formation.html">Formation</a>
+            <a href="actualites.html">Actualités</a>
+            <a href="faq.html">FAQ</a>
+        </div>
         <div>
             <h4>Contact</h4>
-            <p><i class="fas fa-phone"></i> +237 620728292 / 698092721</p>
+            <p><i class="fas fa-phone"></i> +237 675861629</p>
             <p><i class="fas fa-envelope"></i> leondzasso@gmail.com</p>
             <p><i class="fas fa-map"></i> Yaoundé, NKOMETOU</p>
         </div>
         <div>
             <h4>Suivez-nous</h4>
             <div class="social-links">
-                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://twitter.com" target="_blank"><i class="fab fa-x"></i></a>
-                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=61580605020989" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.linkedin.com/in/lionel-ndzana-095bb6311" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/cabinetagriculture?igsh=YzljYTk1ODg3Zg==" target="_blank"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
     </div>
